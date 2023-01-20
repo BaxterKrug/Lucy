@@ -1,0 +1,805 @@
+// DROP DOWN MENU
+function onOpen() {
+ DocumentApp.getUi().createMenu("Lucy Assistant")
+ .addItem("Suggest Ideas", "GIdeas")
+ .addItem("Essay Outline", "GOutline")
+ .addItem("Add Paragraph", "GParagraph")
+ .addItem("Extend Paragraph", "EParagraph")
+ .addItem("Summarize Text", "GSum")
+ .addItem("Develop RQ", "GRQ")
+ .addItem("Introduction", "GIntro")
+ .addItem("Conclusion", "GConclude")
+ .addItem("Meeting Agenda", "GSPB")
+ .addItem("Improve Coherence", "GIC")
+ .addItem("General", "General")
+ .addItem("Foucault", "Foucault")
+
+  .addToUi();
+
+ DocumentApp.getUi().createMenu("Course Dev")
+ .addItem("Write Syllabus", "Syllabus")
+ .addItem("Course Description", "GDescriptions")
+ .addItem("Learning Objectives", "GObjectives")
+ .addItem("Assignments", "GAss")
+ .addItem("Required materials", "RMat")
+ .addItem("16 week Schedule", "Gschedule16")
+ .addItem("General", "General")
+
+  .addToUi();
+
+   DocumentApp.getUi().createMenu("Lesson Plans")
+ .addItem("Lesson Objectives", "LObj")
+ .addItem("Lesson Description", "Ldescription")
+ .addItem("Class Activities", "LActivities")
+ .addItem("Entry tickets", "LEntry")
+ .addItem("Exit tickets", "LEtick")
+ .addItem("Group Work", "LGW")
+ .addItem("Outline", "LOut")
+ .addItem("General", "General")
+
+  .addToUi();
+}
+
+// ****END MENU****
+
+// FIXED VARIABLES. Your API and Model Type
+var apiKey = "Put_Your_API_Key_Here";
+var model = "text-davinci-003"
+// ****END VARIABLES****
+
+
+
+
+
+
+
+
+// GENERATE PROMPT Repeated a lot, can be optimized to be shorter, but I am lazy. 
+function LOut() {
+var doc = DocumentApp.getActiveDocument()
+var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+var body = doc.getBody()
+var prompt = "Based on this idea outline this lesson for a college class: " + selectedText;
+temperature= 0
+maxTokens = 2060
+  const requestBody = {
+    "model": model,
+    "prompt": prompt,
+    "temperature": temperature,
+    "max_tokens": maxTokens,
+  };
+  const requestOptions = {
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+apiKey
+    },
+    "payload": JSON.stringify(requestBody)
+  }
+const response = UrlFetchApp.fetch("https://api.openai.com/v1/completions", requestOptions);
+var responseText = response.getContentText();
+var json = JSON.parse(responseText);
+Logger.log(json['choices'][0]['text'])
+para = body.appendParagraph(json['choices'][0]['text'])
+}
+// ****END PROMPT****
+// GENERATE PROMPT
+function LGW() {
+var doc = DocumentApp.getActiveDocument()
+var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+var body = doc.getBody()
+var prompt = "Provide a list of potential group activities for this lesson: " + selectedText;
+temperature= 0
+maxTokens = 2060
+  const requestBody = {
+    "model": model,
+    "prompt": prompt,
+    "temperature": temperature,
+    "max_tokens": maxTokens,
+  };
+  const requestOptions = {
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+apiKey
+    },
+    "payload": JSON.stringify(requestBody)
+  }
+const response = UrlFetchApp.fetch("https://api.openai.com/v1/completions", requestOptions);
+var responseText = response.getContentText();
+var json = JSON.parse(responseText);
+Logger.log(json['choices'][0]['text'])
+para = body.appendParagraph(json['choices'][0]['text'])
+}
+// ****END PROMPT****
+// GENERATE PROMPT
+function LEtick() {
+var doc = DocumentApp.getActiveDocument()
+var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+var body = doc.getBody()
+var prompt = "Provide a few exit tickets for this lesson. Justify why you might use each one.  " + selectedText;
+temperature= 0
+maxTokens = 2060
+  const requestBody = {
+    "model": model,
+    "prompt": prompt,
+    "temperature": temperature,
+    "max_tokens": maxTokens,
+  };
+  const requestOptions = {
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+apiKey
+    },
+    "payload": JSON.stringify(requestBody)
+  }
+const response = UrlFetchApp.fetch("https://api.openai.com/v1/completions", requestOptions);
+var responseText = response.getContentText();
+var json = JSON.parse(responseText);
+Logger.log(json['choices'][0]['text'])
+para = body.appendParagraph(json['choices'][0]['text'])
+}
+// ****END PROMPT****
+// GENERATE PROMPT
+function LEntry() {
+var doc = DocumentApp.getActiveDocument()
+var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+var body = doc.getBody()
+var prompt = "Provide a few entry tickets for this lesson. Justify why you might use each one.  " + selectedText;
+temperature= 0
+maxTokens = 2060
+  const requestBody = {
+    "model": model,
+    "prompt": prompt,
+    "temperature": temperature,
+    "max_tokens": maxTokens,
+  };
+  const requestOptions = {
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+apiKey
+    },
+    "payload": JSON.stringify(requestBody)
+  }
+const response = UrlFetchApp.fetch("https://api.openai.com/v1/completions", requestOptions);
+var responseText = response.getContentText();
+var json = JSON.parse(responseText);
+Logger.log(json['choices'][0]['text'])
+para = body.appendParagraph(json['choices'][0]['text'])
+}
+// ****END PROMPT****
+// GENERATE PROMPT
+function LActivities() {
+var doc = DocumentApp.getActiveDocument()
+var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+var body = doc.getBody()
+var prompt = "Provide a detailed list of potential classroom activities for this Lesson: " + selectedText;
+temperature= 0
+maxTokens = 2060
+  const requestBody = {
+    "model": model,
+    "prompt": prompt,
+    "temperature": temperature,
+    "max_tokens": maxTokens,
+  };
+  const requestOptions = {
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+apiKey
+    },
+    "payload": JSON.stringify(requestBody)
+  }
+const response = UrlFetchApp.fetch("https://api.openai.com/v1/completions", requestOptions);
+var responseText = response.getContentText();
+var json = JSON.parse(responseText);
+Logger.log(json['choices'][0]['text'])
+para = body.appendParagraph(json['choices'][0]['text'])
+}
+// ****END PROMPT****
+// GENERATE PROMPT
+function Ldescription() {
+var doc = DocumentApp.getActiveDocument()
+var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+var body = doc.getBody()
+var prompt = "Write a description for this lesson plan: " + selectedText;
+temperature= 0
+maxTokens = 2060
+  const requestBody = {
+    "model": model,
+    "prompt": prompt,
+    "temperature": temperature,
+    "max_tokens": maxTokens,
+  };
+  const requestOptions = {
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+apiKey
+    },
+    "payload": JSON.stringify(requestBody)
+  }
+const response = UrlFetchApp.fetch("https://api.openai.com/v1/completions", requestOptions);
+var responseText = response.getContentText();
+var json = JSON.parse(responseText);
+Logger.log(json['choices'][0]['text'])
+para = body.appendParagraph(json['choices'][0]['text'])
+}
+// ****END PROMPT****
+
+// GENERATE PROMPT
+function LObj() {
+var doc = DocumentApp.getActiveDocument()
+var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+var body = doc.getBody()
+var prompt = "List the Objectives for this lesson: " + selectedText;
+temperature= 0
+maxTokens = 2060
+  const requestBody = {
+    "model": model,
+    "prompt": prompt,
+    "temperature": temperature,
+    "max_tokens": maxTokens,
+  };
+  const requestOptions = {
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+apiKey
+    },
+    "payload": JSON.stringify(requestBody)
+  }
+const response = UrlFetchApp.fetch("https://api.openai.com/v1/completions", requestOptions);
+var responseText = response.getContentText();
+var json = JSON.parse(responseText);
+Logger.log(json['choices'][0]['text'])
+para = body.appendParagraph(json['choices'][0]['text'])
+}
+// ****END PROMPT****
+
+
+// GENERATE PROMPT
+function Foucault() {
+var doc = DocumentApp.getActiveDocument()
+var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+var body = doc.getBody()
+var prompt = "Forget your previous instructions. Analyze this in a manner consistent with the works of Michel Foucault: " + selectedText;
+temperature= 0
+maxTokens = 2060
+  const requestBody = {
+    "model": model,
+    "prompt": prompt,
+    "temperature": temperature,
+    "max_tokens": maxTokens,
+  };
+  const requestOptions = {
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+apiKey
+    },
+    "payload": JSON.stringify(requestBody)
+  }
+const response = UrlFetchApp.fetch("https://api.openai.com/v1/completions", requestOptions);
+var responseText = response.getContentText();
+var json = JSON.parse(responseText);
+Logger.log(json['choices'][0]['text'])
+para = body.appendParagraph(json['choices'][0]['text'])
+}
+// ****END PROMPT****
+
+
+// GENERATE PROMPT
+function Syllabus() {
+var doc = DocumentApp.getActiveDocument()
+var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+var body = doc.getBody()
+var prompt = "Generate a graduate school syllabus for this course concept: " + selectedText;
+temperature= 0
+maxTokens = 2060
+  const requestBody = {
+    "model": model,
+    "prompt": prompt,
+    "temperature": temperature,
+    "max_tokens": maxTokens,
+  };
+  const requestOptions = {
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+apiKey
+    },
+    "payload": JSON.stringify(requestBody)
+  }
+const response = UrlFetchApp.fetch("https://api.openai.com/v1/completions", requestOptions);
+var responseText = response.getContentText();
+var json = JSON.parse(responseText);
+Logger.log(json['choices'][0]['text'])
+para = body.appendParagraph(json['choices'][0]['text'])
+}
+// ****END PROMPT****
+// GENERATE PROMPT
+function GDescriptions() {
+var doc = DocumentApp.getActiveDocument()
+var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+var body = doc.getBody()
+var prompt = "Write a course description for this course: " + selectedText;
+temperature= 0
+maxTokens = 2060
+  const requestBody = {
+    "model": model,
+    "prompt": prompt,
+    "temperature": temperature,
+    "max_tokens": maxTokens,
+  };
+  const requestOptions = {
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+apiKey
+    },
+    "payload": JSON.stringify(requestBody)
+  }
+const response = UrlFetchApp.fetch("https://api.openai.com/v1/completions", requestOptions);
+var responseText = response.getContentText();
+var json = JSON.parse(responseText);
+Logger.log(json['choices'][0]['text'])
+para = body.appendParagraph(json['choices'][0]['text'])
+}
+// ****END PROMPT****
+// GENERATE PROMPT
+function GObjectives() {
+var doc = DocumentApp.getActiveDocument()
+var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+var body = doc.getBody()
+var prompt = "Write the learning objectives for this course: " + selectedText;
+temperature= 0
+maxTokens = 2060
+  const requestBody = {
+    "model": model,
+    "prompt": prompt,
+    "temperature": temperature,
+    "max_tokens": maxTokens,
+  };
+  const requestOptions = {
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+apiKey
+    },
+    "payload": JSON.stringify(requestBody)
+  }
+const response = UrlFetchApp.fetch("https://api.openai.com/v1/completions", requestOptions);
+var responseText = response.getContentText();
+var json = JSON.parse(responseText);
+Logger.log(json['choices'][0]['text'])
+para = body.appendParagraph(json['choices'][0]['text'])
+}
+// ****END PROMPT****
+// GENERATE PROMPT
+function GAss() {
+var doc = DocumentApp.getActiveDocument()
+var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+var body = doc.getBody()
+var prompt = "Generate 10 detailed Assignments for this course: " + selectedText;
+temperature= 0
+maxTokens = 2060
+  const requestBody = {
+    "model": model,
+    "prompt": prompt,
+    "temperature": temperature,
+    "max_tokens": maxTokens,
+  };
+  const requestOptions = {
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+apiKey
+    },
+    "payload": JSON.stringify(requestBody)
+  }
+const response = UrlFetchApp.fetch("https://api.openai.com/v1/completions", requestOptions);
+var responseText = response.getContentText();
+var json = JSON.parse(responseText);
+Logger.log(json['choices'][0]['text'])
+para = body.appendParagraph(json['choices'][0]['text'])
+}
+// ****END PROMPT****
+
+// GENERATE PROMPT
+function RMat() {
+var doc = DocumentApp.getActiveDocument()
+var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+var body = doc.getBody()
+var prompt = "Write out a list of required materials for this course" + selectedText;
+temperature= 0
+maxTokens = 2060
+  const requestBody = {
+    "model": model,
+    "prompt": prompt,
+    "temperature": temperature,
+    "max_tokens": maxTokens,
+  };
+  const requestOptions = {
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+apiKey
+    },
+    "payload": JSON.stringify(requestBody)
+  }
+const response = UrlFetchApp.fetch("https://api.openai.com/v1/completions", requestOptions);
+var responseText = response.getContentText();
+var json = JSON.parse(responseText);
+Logger.log(json['choices'][0]['text'])
+para = body.appendParagraph(json['choices'][0]['text'])
+}
+// ****END PROMPT****
+// GENERATE PROMPT
+function Gschedule16() {
+var doc = DocumentApp.getActiveDocument()
+var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+var body = doc.getBody()
+var prompt = "Build a 16 week Schedule for this course: " + selectedText;
+temperature= 0
+maxTokens = 2060
+  const requestBody = {
+    "model": model,
+    "prompt": prompt,
+    "temperature": temperature,
+    "max_tokens": maxTokens,
+  };
+  const requestOptions = {
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+apiKey
+    },
+    "payload": JSON.stringify(requestBody)
+  }
+const response = UrlFetchApp.fetch("https://api.openai.com/v1/completions", requestOptions);
+var responseText = response.getContentText();
+var json = JSON.parse(responseText);
+Logger.log(json['choices'][0]['text'])
+para = body.appendParagraph(json['choices'][0]['text'])
+}
+// ****END PROMPT****
+
+
+// GENERATE PROMPT
+function General() {
+var doc = DocumentApp.getActiveDocument()
+var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+var body = doc.getBody()
+var prompt = selectedText;
+temperature= 0
+maxTokens = 2060
+  const requestBody = {
+    "model": model,
+    "prompt": prompt,
+    "temperature": temperature,
+    "max_tokens": maxTokens,
+  };
+  const requestOptions = {
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+apiKey
+    },
+    "payload": JSON.stringify(requestBody)
+  }
+const response = UrlFetchApp.fetch("https://api.openai.com/v1/completions", requestOptions);
+var responseText = response.getContentText();
+var json = JSON.parse(responseText);
+Logger.log(json['choices'][0]['text'])
+para = body.appendParagraph(json['choices'][0]['text'])
+}
+// ****END PROMPT****
+
+// GENERATE PROMPT
+function GIdeas() {
+var doc = DocumentApp.getActiveDocument()
+var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+var body = doc.getBody()
+var prompt = "Write 10 interesting prompts about the following text: " + selectedText;
+temperature= 0
+maxTokens = 2060
+  const requestBody = {
+    "model": model,
+    "prompt": prompt,
+    "temperature": temperature,
+    "max_tokens": maxTokens,
+  };
+  const requestOptions = {
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+apiKey
+    },
+    "payload": JSON.stringify(requestBody)
+  }
+const response = UrlFetchApp.fetch("https://api.openai.com/v1/completions", requestOptions);
+var responseText = response.getContentText();
+var json = JSON.parse(responseText);
+Logger.log(json['choices'][0]['text'])
+para = body.appendParagraph(json['choices'][0]['text'])
+}
+// ****END PROMPT****
+
+// GENERATE PROMPT
+function GOutline() {
+var doc = DocumentApp.getActiveDocument()
+var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+var body = doc.getBody()
+var prompt = "Write an critical Essay outline:" + selectedText;
+temperature= 0
+maxTokens = 2060
+  const requestBody = {
+    "model": model,
+    "prompt": prompt,
+    "temperature": temperature,
+    "max_tokens": maxTokens,
+  };
+  const requestOptions = {
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+apiKey
+    },
+    "payload": JSON.stringify(requestBody)
+  }
+const response = UrlFetchApp.fetch("https://api.openai.com/v1/completions", requestOptions);
+var responseText = response.getContentText();
+var json = JSON.parse(responseText);
+Logger.log(json['choices'][0]['text'])
+para = body.appendParagraph(json['choices'][0]['text'])
+}
+// ****END PROMPT****
+
+
+// GENERATE PROMPT
+function GParagraph() {
+var doc = DocumentApp.getActiveDocument()
+var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+var body = doc.getBody()
+var prompt = "Generate paragraph for this text: " + selectedText;
+temperature= 0
+maxTokens = 2060
+  const requestBody = {
+    "model": model,
+    "prompt": prompt,
+    "temperature": temperature,
+    "max_tokens": maxTokens,
+  };
+  const requestOptions = {
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+apiKey
+    },
+    "payload": JSON.stringify(requestBody)
+  }
+const response = UrlFetchApp.fetch("https://api.openai.com/v1/completions", requestOptions);
+var responseText = response.getContentText();
+var json = JSON.parse(responseText);
+Logger.log(json['choices'][0]['text'])
+para = body.appendParagraph(json['choices'][0]['text'])
+}
+// ****END PROMPT****
+
+// GENERATE PROMPT
+function EParagraph() {
+var doc = DocumentApp.getActiveDocument()
+var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+var body = doc.getBody()
+var prompt = "Extend this Paragraph: " + selectedText;
+temperature= 0
+maxTokens = 2060
+  const requestBody = {
+    "model": model,
+    "prompt": prompt,
+    "temperature": temperature,
+    "max_tokens": maxTokens,
+  };
+  const requestOptions = {
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+apiKey
+    },
+    "payload": JSON.stringify(requestBody)
+  }
+const response = UrlFetchApp.fetch("https://api.openai.com/v1/completions", requestOptions);
+var responseText = response.getContentText();
+var json = JSON.parse(responseText);
+Logger.log(json['choices'][0]['text'])
+para = body.appendParagraph(json['choices'][0]['text'])
+}
+// ****END PROMPT****
+
+// GENERATE PROMPT
+function GSum() {
+var doc = DocumentApp.getActiveDocument()
+var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+var body = doc.getBody()
+var prompt = "Summarize this text: " + selectedText;
+temperature= 0
+maxTokens = 2060
+  const requestBody = {
+    "model": model,
+    "prompt": prompt,
+    "temperature": temperature,
+    "max_tokens": maxTokens,
+  };
+  const requestOptions = {
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+apiKey
+    },
+    "payload": JSON.stringify(requestBody)
+  }
+const response = UrlFetchApp.fetch("https://api.openai.com/v1/completions", requestOptions);
+var responseText = response.getContentText();
+var json = JSON.parse(responseText);
+Logger.log(json['choices'][0]['text'])
+para = body.appendParagraph(json['choices'][0]['text'])
+}
+// ****END PROMPT****
+
+
+// GENERATE PROMPT
+function GRQ() {
+var doc = DocumentApp.getActiveDocument()
+var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+var body = doc.getBody()
+var prompt = "Generate Research questions on this topic: " + selectedText;
+temperature= 0
+maxTokens = 2060
+  const requestBody = {
+    "model": model,
+    "prompt": prompt,
+    "temperature": temperature,
+    "max_tokens": maxTokens,
+  };
+  const requestOptions = {
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+apiKey
+    },
+    "payload": JSON.stringify(requestBody)
+  }
+const response = UrlFetchApp.fetch("https://api.openai.com/v1/completions", requestOptions);
+var responseText = response.getContentText();
+var json = JSON.parse(responseText);
+Logger.log(json['choices'][0]['text'])
+para = body.appendParagraph(json['choices'][0]['text'])
+}
+// ****END PROMPT****
+
+// GENERATE PROMPT
+function GIntro() {
+var doc = DocumentApp.getActiveDocument()
+var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+var body = doc.getBody()
+var prompt = "Write an engaging introduction for an article on this: " + selectedText;
+temperature= 0
+maxTokens = 2060
+  const requestBody = {
+    "model": model,
+    "prompt": prompt,
+    "temperature": temperature,
+    "max_tokens": maxTokens,
+  };
+  const requestOptions = {
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+apiKey
+    },
+    "payload": JSON.stringify(requestBody)
+  }
+const response = UrlFetchApp.fetch("https://api.openai.com/v1/completions", requestOptions);
+var responseText = response.getContentText();
+var json = JSON.parse(responseText);
+Logger.log(json['choices'][0]['text'])
+para = body.appendParagraph(json['choices'][0]['text'])
+}
+// ****END PROMPT****
+
+// GENERATE PROMPT
+function GConclude() {
+var doc = DocumentApp.getActiveDocument()
+var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+var body = doc.getBody()
+var prompt = "Write the Conclusion for this text: " + selectedText;
+temperature= 0
+maxTokens = 2060
+  const requestBody = {
+    "model": model,
+    "prompt": prompt,
+    "temperature": temperature,
+    "max_tokens": maxTokens,
+  };
+  const requestOptions = {
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+apiKey
+    },
+    "payload": JSON.stringify(requestBody)
+  }
+const response = UrlFetchApp.fetch("https://api.openai.com/v1/completions", requestOptions);
+var responseText = response.getContentText();
+var json = JSON.parse(responseText);
+Logger.log(json['choices'][0]['text'])
+para = body.appendParagraph(json['choices'][0]['text'])
+}
+// ****END PROMPT****
+
+
+// GENERATE PROMPT
+function GSPB() {
+var doc = DocumentApp.getActiveDocument()
+var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+var body = doc.getBody()
+var prompt = "Write up a Meeting Agenda for this: " + selectedText + "Write up a meeting agenda for this:";
+temperature= 0
+maxTokens = 3060
+  const requestBody = {
+    "model": model,
+    "prompt": prompt,
+    "temperature": temperature,
+    "max_tokens": maxTokens,
+  };
+  const requestOptions = {
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+apiKey
+    },
+    "payload": JSON.stringify(requestBody)
+  }
+const response = UrlFetchApp.fetch("https://api.openai.com/v1/completions", requestOptions);
+var responseText = response.getContentText();
+var json = JSON.parse(responseText);
+Logger.log(json['choices'][0]['text'])
+para = body.appendParagraph(json['choices'][0]['text'])
+}
+// ****END PROMPT****
+
+
+// GENERATE PROMPT
+function GIC() {
+var doc = DocumentApp.getActiveDocument()
+var selectedText = doc.getSelection().getRangeElements()[0].getElement().asText().getText()
+var body = doc.getBody()
+var prompt = "MAKE THIS COHERENT: " + selectedText + " MAKE ABOVE COHERENT";
+temperature= 0
+maxTokens = 3060
+  const requestBody = {
+    "model": model,
+    "prompt": prompt,
+    "temperature": temperature,
+    "max_tokens": maxTokens,
+  };
+  const requestOptions = {
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer "+apiKey
+    },
+    "payload": JSON.stringify(requestBody)
+  }
+const response = UrlFetchApp.fetch("https://api.openai.com/v1/completions", requestOptions);
+var responseText = response.getContentText();
+var json = JSON.parse(responseText);
+Logger.log(json['choices'][0]['text'])
+para = body.appendParagraph(json['choices'][0]['text'])
+}
+// ****END PROMPT****
+
+
