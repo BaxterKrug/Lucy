@@ -51,7 +51,7 @@ var prompts = [
   }
 ];
 
-// Function short hand
+// Function short hand, text should match list above exactly. 
 function ImproveCoherence() {
   generatePrompt("Improve Coherence");
 }
